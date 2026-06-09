@@ -180,7 +180,24 @@ with st.sidebar:
 section[data-testid="stSidebar"] {
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
 }
-/* Move the button out of the sidebar visually — pin it to top-right of the main header */
+/* Flex column on the sidebar block-container so the spacer can push content down */
+section[data-testid="stSidebar"] .block-container {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: calc(100vh - 4rem) !important;
+}
+/* :has() targets the element-container div that wraps our spacer, making it expand */
+section[data-testid="stSidebar"] .block-container > div:has(#sidebar-spacer) {
+    flex: 1 !important;
+    min-height: 2rem !important;
+}
+/* Contact block — normal sidebar flow, so padding/border align with the rest */
+#sidebar-contact-block {
+    padding: 10px 0 1rem;
+    border-top: 1px solid #ccc;
+    text-align: center;
+}
+/* About MIRA button — visually relocated to top-right header */
 section[data-testid="stSidebar"] .stButton > button {
     position: fixed !important;
     top: 14px !important;
@@ -201,27 +218,17 @@ section[data-testid="stSidebar"] .stButton > button {
 section[data-testid="stSidebar"] .stButton > button:hover {
     background-color: rgba(26, 58, 108, 0.1) !important;
 }
-/* Contact block pinned to bottom of sidebar */
-#sidebar-contact-block {
-    position: fixed !important;
-    bottom: 1rem !important;
-    left: 0 !important;
-    width: 21rem !important;
-    box-sizing: border-box !important;
-    padding: 10px 1.5rem 0 !important;
-    border-top: 1px solid #ccc !important;
-    text-align: center !important;
-    z-index: 998 !important;
-}
 </style>
         """,
         unsafe_allow_html=True,
     )
+    # Spacer — expands to fill remaining vertical space, pushing contact block to bottom
+    st.markdown('<div id="sidebar-spacer"></div>', unsafe_allow_html=True)
     st.markdown(
         """
 <div id="sidebar-contact-block">
   <p style="font-family:'Georgia','Times New Roman',serif; font-size:1.1em; font-weight:bold; color:#1a3a6c; letter-spacing:0.06em; text-shadow:1px 1px 3px rgba(0,0,0,0.12); margin:0 0 6px;">✈️ Meridian Airlines</p>
-  <div style="font-family:'Segoe UI',Arial,sans-serif; font-size:0.78em; color:#555; line-height:2;">
+  <div style="font-family:'Segoe UI',Arial,sans-serif; font-size:0.78em; color:#555; line-height:2; text-align:center;">
     <div>🌐 <a href="https://www.meridianair.com" style="color:#1a3a6c; text-decoration:none;">www.meridianair.com</a></div>
     <div>📧 <a href="mailto:support@meridianair.com" style="color:#1a3a6c; text-decoration:none;">support@meridianair.com</a></div>
     <div>📞 +1-800-637-4326</div>
