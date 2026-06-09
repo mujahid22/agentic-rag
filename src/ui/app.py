@@ -177,6 +177,14 @@ with st.sidebar:
     st.markdown(
         """
 <style>
+/* Make sidebar block-container a flex column so we can push content to the bottom */
+[data-testid="stSidebar"] [data-testid="stSidebarContent"] > .block-container {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: calc(100vh - 2rem) !important;
+    padding-bottom: 1rem !important;
+}
+#sidebar-spacer { flex: 1 !important; }
 section[data-testid="stSidebar"] .stButton > button {
     width: 100%;
     z-index: 999;
@@ -195,6 +203,8 @@ section[data-testid="stSidebar"] {
         """,
         unsafe_allow_html=True,
     )
+    # Spacer pushes the contact block + button to the bottom of the sidebar
+    st.markdown('<div id="sidebar-spacer"></div>', unsafe_allow_html=True)
     st.markdown(
         """
 <div id="sidebar-contact-block">
