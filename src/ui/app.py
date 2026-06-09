@@ -177,26 +177,34 @@ with st.sidebar:
     st.markdown(
         """
 <style>
-/*
-  Use position:fixed with rem units (Streamlit sidebar default = 21rem).
-  box-sizing:border-box keeps horizontal padding inside the width budget.
-*/
 section[data-testid="stSidebar"] {
-    min-width: 21rem !important;
-    max-width: 21rem !important;
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
 }
+/* Move the button out of the sidebar visually — pin it to top-right of the main header */
 section[data-testid="stSidebar"] .stButton > button {
     position: fixed !important;
-    bottom: 1rem !important;
-    left: 50% !important;
-    transform: translateX(-8.5rem) !important;
-    width: 17rem !important;
-    z-index: 999 !important;
+    top: 14px !important;
+    right: 1.2rem !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    padding: 5px 16px !important;
+    border-radius: 20px !important;
+    background-color: rgba(255, 255, 255, 0.88) !important;
+    border: 1.5px solid #1a3a6c !important;
+    color: #1a3a6c !important;
+    font-size: 0.82em !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.14) !important;
+    z-index: 200 !important;
 }
+section[data-testid="stSidebar"] .stButton > button:hover {
+    background-color: rgba(26, 58, 108, 0.1) !important;
+}
+/* Contact block pinned to bottom of sidebar */
 #sidebar-contact-block {
     position: fixed !important;
-    bottom: 3.8rem !important;
+    bottom: 1rem !important;
     left: 0 !important;
     width: 21rem !important;
     box-sizing: border-box !important;
@@ -223,7 +231,7 @@ section[data-testid="stSidebar"] .stButton > button {
         """,
         unsafe_allow_html=True,
     )
-    if st.button("About MIRA", use_container_width=True):
+    if st.button("ℹ️  About MIRA"):
         _admin_dialog()
 
 
