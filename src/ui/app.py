@@ -177,34 +177,35 @@ with st.sidebar:
     st.markdown(
         """
 <style>
-/* Make sidebar block-container a flex column so we can push content to the bottom */
-[data-testid="stSidebar"] [data-testid="stSidebarContent"] > .block-container {
-    display: flex !important;
-    flex-direction: column !important;
-    min-height: calc(100vh - 2rem) !important;
-    padding-bottom: 1rem !important;
-}
-#sidebar-spacer { flex: 1 !important; }
+/*
+  Use position:fixed with rem units (Streamlit sidebar default = 21rem).
+  box-sizing:border-box keeps horizontal padding inside the width budget.
+*/
 section[data-testid="stSidebar"] .stButton > button {
-    width: 100%;
-    z-index: 999;
+    position: fixed !important;
+    bottom: 1rem !important;
+    left: 1rem !important;
+    width: calc(21rem - 2rem) !important;
+    z-index: 999 !important;
 }
 section[data-testid="stSidebar"] {
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
 }
 #sidebar-contact-block {
-    text-align: center;
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
+    position: fixed !important;
+    bottom: 3.8rem !important;
+    left: 0 !important;
+    width: 21rem !important;
+    box-sizing: border-box !important;
+    padding: 10px 1rem 0 !important;
+    border-top: 1px solid #ccc !important;
+    text-align: center !important;
+    z-index: 998 !important;
 }
 </style>
         """,
         unsafe_allow_html=True,
     )
-    # Spacer pushes the contact block + button to the bottom of the sidebar
-    st.markdown('<div id="sidebar-spacer"></div>', unsafe_allow_html=True)
     st.markdown(
         """
 <div id="sidebar-contact-block">
