@@ -180,14 +180,14 @@ with st.sidebar:
 section[data-testid="stSidebar"] {
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
 }
-/* Contact block: fixed to bottom; width:inherit takes the computed
-   width from the DOM parent (sidebar content area) not the viewport,
-   so it automatically matches the actual sidebar width on any screen. */
+/* Contact block — fixed to the bottom of the sidebar */
 #sidebar-contact-block {
     position: fixed !important;
     bottom: 1rem !important;
-    left: 1rem !important;
-    width: inherit !important;
+    left: 0 !important;
+    width: 21rem !important;
+    box-sizing: border-box !important;
+    padding: 0 1rem !important;
     z-index: 998 !important;
 }
 /* About MIRA button — visually relocated to top-right header */
@@ -218,7 +218,7 @@ section[data-testid="stSidebar"] .stButton > button:hover {
     st.markdown(
         """
 <div id="sidebar-contact-block">
-  <div style="border-top:1px solid #ccc; padding-top:10px; text-align:center;">
+  <div style="padding-top:10px; text-align:center;">
     <p style="font-family:'Georgia','Times New Roman',serif; font-size:1.1em; font-weight:bold; color:#1a3a6c; letter-spacing:0.06em; text-shadow:1px 1px 3px rgba(0,0,0,0.12); margin:0 0 6px; text-align:center;">✈️ Meridian Airlines</p>
     <div style="font-family:'Segoe UI',Arial,sans-serif; font-size:0.78em; color:#555; line-height:2;">
       <div style="text-align:center;">🌐 <a href="https://www.meridianair.com" style="color:#1a3a6c; text-decoration:none;">www.meridianair.com</a></div>
