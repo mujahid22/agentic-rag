@@ -180,27 +180,18 @@ with st.sidebar:
 section[data-testid="stSidebar"] {
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
 }
-/* Three-level flex chain:
-   block-container → stVerticalBlock → element-container(spacer)
-   Each level must be flex so flex:1 propagates down to the spacer. */
-section[data-testid="stSidebar"] .block-container {
-    display: flex !important;
-    flex-direction: column !important;
-    min-height: calc(100vh - 4rem) !important;
-}
-section[data-testid="stSidebar"] .block-container > [data-testid="stVerticalBlock"] {
-    display: flex !important;
-    flex-direction: column !important;
-    flex: 1 !important;
-}
-section[data-testid="stSidebar"] .block-container > [data-testid="stVerticalBlock"] > div:has(#sidebar-spacer) {
-    flex: 1 !important;
-}
-/* Contact block — normal sidebar flow, so padding/border align with the rest */
+/* Contact block — fixed to the bottom of the sidebar */
 #sidebar-contact-block {
-    padding: 10px 0 1rem;
-    border-top: 1px solid #ccc;
-    text-align: center;
+    position: fixed !important;
+    bottom: 1rem !important;
+    left: 0 !important;
+    width: 21rem !important;
+    box-sizing: border-box !important;
+    padding: 10px 1rem 0 !important;
+    border-top: 1px solid #ccc !important;
+    text-align: center !important;
+    z-index: 998 !important;
+    background: transparent !important;
 }
 /* About MIRA button — visually relocated to top-right header */
 section[data-testid="stSidebar"] .stButton > button {
@@ -227,8 +218,6 @@ section[data-testid="stSidebar"] .stButton > button:hover {
         """,
         unsafe_allow_html=True,
     )
-    # Spacer — expands to fill remaining vertical space, pushing contact block to bottom
-    st.markdown('<div id="sidebar-spacer"></div>', unsafe_allow_html=True)
     st.markdown(
         """
 <div id="sidebar-contact-block">
