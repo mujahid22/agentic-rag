@@ -181,15 +181,18 @@ with st.sidebar:
   Use position:fixed with rem units (Streamlit sidebar default = 21rem).
   box-sizing:border-box keeps horizontal padding inside the width budget.
 */
+section[data-testid="stSidebar"] {
+    min-width: 21rem !important;
+    max-width: 21rem !important;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
+}
 section[data-testid="stSidebar"] .stButton > button {
     position: fixed !important;
     bottom: 1rem !important;
-    left: 1rem !important;
-    width: calc(21rem - 2rem) !important;
+    left: 50% !important;
+    transform: translateX(-8.5rem) !important;
+    width: 17rem !important;
     z-index: 999 !important;
-}
-section[data-testid="stSidebar"] {
-    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
 }
 #sidebar-contact-block {
     position: fixed !important;
@@ -197,7 +200,7 @@ section[data-testid="stSidebar"] {
     left: 0 !important;
     width: 21rem !important;
     box-sizing: border-box !important;
-    padding: 10px 1rem 0 !important;
+    padding: 10px 1.5rem 0 !important;
     border-top: 1px solid #ccc !important;
     text-align: center !important;
     z-index: 998 !important;
