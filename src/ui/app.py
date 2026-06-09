@@ -180,14 +180,14 @@ with st.sidebar:
 section[data-testid="stSidebar"] {
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
 }
-/* Contact block — fixed to the bottom of the sidebar */
+/* Contact block: fixed to bottom; width:inherit takes the computed
+   width from the DOM parent (sidebar content area) not the viewport,
+   so it automatically matches the actual sidebar width on any screen. */
 #sidebar-contact-block {
     position: fixed !important;
     bottom: 1rem !important;
-    left: 0 !important;
-    width: 21rem !important;
-    box-sizing: border-box !important;
-    padding: 0 1rem !important;
+    left: 1rem !important;
+    width: inherit !important;
     z-index: 998 !important;
 }
 /* About MIRA button — visually relocated to top-right header */
