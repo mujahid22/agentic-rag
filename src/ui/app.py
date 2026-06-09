@@ -180,16 +180,21 @@ with st.sidebar:
 section[data-testid="stSidebar"] {
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
 }
-/* Flex column on the sidebar block-container so the spacer can push content down */
+/* Three-level flex chain:
+   block-container → stVerticalBlock → element-container(spacer)
+   Each level must be flex so flex:1 propagates down to the spacer. */
 section[data-testid="stSidebar"] .block-container {
     display: flex !important;
     flex-direction: column !important;
     min-height: calc(100vh - 4rem) !important;
 }
-/* :has() targets the element-container div that wraps our spacer, making it expand */
-section[data-testid="stSidebar"] .block-container > div:has(#sidebar-spacer) {
+section[data-testid="stSidebar"] .block-container > [data-testid="stVerticalBlock"] {
+    display: flex !important;
+    flex-direction: column !important;
     flex: 1 !important;
-    min-height: 2rem !important;
+}
+section[data-testid="stSidebar"] .block-container > [data-testid="stVerticalBlock"] > div:has(#sidebar-spacer) {
+    flex: 1 !important;
 }
 /* Contact block — normal sidebar flow, so padding/border align with the rest */
 #sidebar-contact-block {
