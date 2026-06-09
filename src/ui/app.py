@@ -193,7 +193,7 @@ section[data-testid="stSidebar"] {
 /* About MIRA button — visually relocated to top-right header */
 section[data-testid="stSidebar"] .stButton > button {
     position: fixed !important;
-    top: 14px !important;
+    top: 52px !important;
     right: 1.2rem !important;
     left: auto !important;
     bottom: auto !important;
