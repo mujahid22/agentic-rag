@@ -178,24 +178,18 @@ with st.sidebar:
         """
 <style>
 section[data-testid="stSidebar"] .stButton > button {
-    position: fixed;
-    bottom: 1.2rem;
-    left: 1rem;
-    width: 290px;
+    width: 100%;
     z-index: 999;
 }
 section[data-testid="stSidebar"] {
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.18) !important;
 }
 #sidebar-contact-block {
-    position: fixed;
-    bottom: 4.8rem;
-    left: 1rem;
-    width: 290px;
-    z-index: 998;
     text-align: center;
     border-top: 1px solid #ccc;
     padding-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
 }
 </style>
         """,
