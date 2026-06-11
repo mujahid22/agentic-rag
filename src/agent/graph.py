@@ -164,12 +164,15 @@ def stream_query(query: str) -> Generator[str, None, None]:
         HumanMessage(content=f"{query}\n\n[Retrieved Documentation]\n{context}"),
     ]
 
+    usage = None
     try:
-        for chunk in llm.stream(messages):
+        for chunk in llm.stream(messages, stream_usage=True):
             if chunk.content:
                 yield chunk.content
+            if chunk.usage_metadata:
+                usage = chunk.usage_metadata
     finally:
-        end_query()
+        end_query(usage)
 
 
 def stream_with_status(query: str) -> Generator[tuple[str, str], None, None]:

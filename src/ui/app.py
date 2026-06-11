@@ -146,7 +146,8 @@ def _admin_dialog():
                     for t in q["tools"]
                 ) or "—"
                 rt = f"{q['response_time_s']}s" if q["response_time_s"] else "—"
-                header = f"🕐 {q['timestamp']}  |  ⏱ {rt}  —  {q['query'][:60]}{'…' if len(q['query']) > 60 else ''}"
+                tokens = f"{q['total_tokens']:,}" if q["total_tokens"] else "—"
+                header = f"🕐 {q['timestamp']}  |  ⏱ {rt}  |  🔢 {tokens} tokens  —  {q['query'][:60]}{'…' if len(q['query']) > 60 else ''}"
                 with st.expander(header):
                     st.markdown(f"**Query:** {q['query']}")
                     st.markdown(f"**Tools pre-selected:** {tools_label}")
@@ -160,6 +161,7 @@ def _admin_dialog():
                                 f"- Route: **{route}** · Top score: `{score}` · Rerank: {reranked} · Results: {r['results_returned']}"
                             )
                     st.markdown(f"**Response time:** {rt}")
+                    st.markdown(f"**Total tokens used:** {tokens}")
 
 # ── Sidebar ───────────────────────────────────────────────────
 with st.sidebar:

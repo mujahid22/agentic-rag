@@ -69,17 +69,22 @@ def set_current_query_id(qid: str) -> None:
     _current_query_id.set(qid)
 
 
-def end_query() -> None:
+def end_query(usage: dict | None = None) -> None:
     qid = _current_query_id.get()
     if not qid:
         return
     elapsed = round(time.time() - _query_start_time.get(), 2)
-    _append({
+    record = {
         "query_id": qid,
         "event": "query_end",
         "timestamp": _now(),
         "response_time_s": elapsed,
-    })
+    }
+    if usage:
+        record["input_tokens"] = usage.get("input_tokens")
+        record["output_tokens"] = usage.get("output_tokens")
+        record["total_tokens"] = usage.get("total_tokens")
+    _append(record)
 
 
 def load_queries(since: str | None = None) -> list[dict]:
@@ -108,6 +113,7 @@ def load_queries(since: str | None = None) -> list[dict]:
                 "tools": [],
                 "retrievals": [],
                 "response_time_s": None,
+                "total_tokens": None,
             }
         if r["event"] == "query_start":
             queries[qid]["query"] = r["query"]
@@ -118,6 +124,7 @@ def load_queries(since: str | None = None) -> list[dict]:
             queries[qid]["retrievals"].append(r)
         elif r["event"] == "query_end":
             queries[qid]["response_time_s"] = r["response_time_s"]
+            queries[qid]["total_tokens"] = r.get("total_tokens")
 
     result = list(reversed(list(queries.values())))
     if since:
