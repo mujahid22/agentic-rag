@@ -87,9 +87,15 @@ _SAMPLE_QUERIES = [
 # ── Admin dialog ──────────────────────────────────────────────
 @st.dialog("About MIRA", width="large")
 def _admin_dialog():
-    tab_arch, tab_logs = st.tabs(["Architecture", "Query Logs"])
+    tab_arch, tab_logs = st.tabs(["About MIRA", "Session Log"])
 
     with tab_arch:
+        st.markdown(
+            "MIRA is Meridian Airlines' AI-powered virtual assistant — built to give "
+            "travelers fast, accurate answers about bookings, baggage, flight delays, "
+            "lounge access, travel documents, frequent flyer miles, and more, grounded "
+            "entirely in official Meridian Airlines documentation."
+        )
         col_left, col_right = st.columns([3, 2])
         with col_left:
             st.markdown("### System Architecture")
@@ -115,7 +121,7 @@ def _admin_dialog():
             st.metric("Vectors in Pinecone", 395)
 
     with tab_logs:
-        st.markdown("### Current Session Query Logs")
+        st.markdown("### Session Log")
         queries = load_queries(since=st.session_state.session_start)
         if not queries:
             st.info("No queries in this session yet. Ask MIRA something to see the trace here.")
