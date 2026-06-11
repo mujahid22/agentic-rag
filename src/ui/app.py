@@ -147,7 +147,7 @@ def _admin_dialog():
                 ) or "—"
                 rt = f"{q['response_time_s']}s" if q["response_time_s"] else "—"
                 _tt = q.get("total_tokens")
-                tokens = f"{_tt:,}" if _tt else "—"
+                tokens = (f"~{_tt:,}" if q.get("token_estimate") else f"{_tt:,}") if _tt else "—"
                 header = f"🕐 {q['timestamp']}  |  ⏱ {rt}  |  🔢 {tokens} tokens  —  {q['query'][:60]}{'…' if len(q['query']) > 60 else ''}"
                 with st.expander(header):
                     st.markdown(f"**Query:** {q['query']}")

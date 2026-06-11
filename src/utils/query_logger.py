@@ -69,7 +69,7 @@ def set_current_query_id(qid: str) -> None:
     _current_query_id.set(qid)
 
 
-def end_query(usage: dict | None = None) -> None:
+def end_query(usage: dict | None = None, is_estimate: bool = False) -> None:
     qid = _current_query_id.get()
     if not qid:
         return
@@ -84,6 +84,7 @@ def end_query(usage: dict | None = None) -> None:
         record["input_tokens"] = usage.get("input_tokens")
         record["output_tokens"] = usage.get("output_tokens")
         record["total_tokens"] = usage.get("total_tokens")
+        record["token_estimate"] = is_estimate
     _append(record)
 
 
@@ -114,6 +115,7 @@ def load_queries(since: str | None = None) -> list[dict]:
                 "retrievals": [],
                 "response_time_s": None,
                 "total_tokens": None,
+                "token_estimate": False,
             }
         if r["event"] == "query_start":
             queries[qid]["query"] = r["query"]
@@ -125,6 +127,7 @@ def load_queries(since: str | None = None) -> list[dict]:
         elif r["event"] == "query_end":
             queries[qid]["response_time_s"] = r["response_time_s"]
             queries[qid]["total_tokens"] = r.get("total_tokens")
+            queries[qid]["token_estimate"] = r.get("token_estimate", False)
 
     result = list(reversed(list(queries.values())))
     if since:

@@ -165,14 +165,31 @@ def stream_query(query: str) -> Generator[str, None, None]:
     ]
 
     usage = None
+    is_estimate = False
+    response_text = ""
     try:
         for chunk in llm.stream(messages, stream_usage=True):
             if chunk.content:
+                response_text += chunk.content
                 yield chunk.content
             if chunk.usage_metadata:
                 usage = chunk.usage_metadata
     finally:
-        end_query(usage)
+        if usage is None:
+            is_estimate = True
+            usage = _estimate_tokens(SYSTEM_PROMPT + messages[-1].content, response_text)
+        end_query(usage, is_estimate=is_estimate)
+
+
+def _estimate_tokens(prompt_text: str, response_text: str) -> dict:
+    """Rough fallback when the API doesn't return usage_metadata: ~4 chars/token."""
+    input_tokens = max(1, len(prompt_text) // 4)
+    output_tokens = max(1, len(response_text) // 4)
+    return {
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "total_tokens": input_tokens + output_tokens,
+    }
 
 
 def stream_with_status(query: str) -> Generator[tuple[str, str], None, None]:
