@@ -90,12 +90,17 @@ def _admin_dialog():
     tab_arch, tab_logs = st.tabs(["About MIRA", "Session Log"])
 
     with tab_arch:
-        st.markdown(
-            "MIRA is Meridian Airlines' AI-powered virtual assistant — built to give "
-            "travelers fast, accurate answers about bookings, baggage, flight delays, "
-            "lounge access, travel documents, frequent flyer miles, and more, grounded "
-            "entirely in official Meridian Airlines documentation."
-        )
+        av_col, desc_col = st.columns([1, 4])
+        with av_col:
+            if _AVATAR_PATH.exists():
+                st.image(str(_AVATAR_PATH), width=100)
+        with desc_col:
+            st.markdown(
+                "MIRA is Meridian Airlines' AI-powered virtual assistant — built to give "
+                "travelers fast, accurate answers about bookings, baggage, flight delays, "
+                "lounge access, travel documents, frequent flyer miles, and more, grounded "
+                "entirely in official Meridian Airlines documentation."
+            )
         col_left, col_right = st.columns([3, 2])
         with col_left:
             st.markdown("### System Architecture")
